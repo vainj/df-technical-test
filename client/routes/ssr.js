@@ -19,7 +19,8 @@ router.get('/', async (req, res) => {
                 
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 
-                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Roboto:300,400,500,700&display=swap" />
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Roboto:300,400,500,700&display=swap">
             </head>
             <body>
                 <main id="app-component">{{{appComponent}}}</main>
