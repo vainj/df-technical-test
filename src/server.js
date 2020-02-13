@@ -1,8 +1,12 @@
 import express from "express";
 import compression from "compression";
 import ssr from "./routes/ssr";
+import favicon from "serve-favicon";
 
 const app = express();
+
+// Middleware for serving a favicon
+app.use(favicon('public/fav.ico'));
 
 // Uses Compression middleware to allow static content to be served with compression
 app.use(compression());

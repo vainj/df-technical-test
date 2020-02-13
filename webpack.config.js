@@ -1,4 +1,5 @@
-const path = require("path");
+const path              = require("path");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
     entry   : {
@@ -25,7 +26,12 @@ const config = {
     },
     resolve : {
         extensions : [".js", ".jsx", ".json", ".wasm", ".mjs", "*"]
-    }
+    },
+    plugins : [
+        new CopyWebpackPlugin([
+            {from : 'resources', to : '.'}
+        ]),
+    ],
 };
 
 module.exports = config;
