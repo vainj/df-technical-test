@@ -1,47 +1,47 @@
 {
-    "name": "df-technical-test",
-    "version": "1.0.0",
-    "description": "DF technical test",
-    "main": "server.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "webpack": "webpack -wd",
-        "dev": "nodemon --inspect=0.0.0.0 --exec babel-node src/server.js",
-        "prod": "node src/server.js"
+    "name"            : "df-technical-test",
+    "version"         : "1.0.0",
+    "description"     : "DF technical test",
+    "scripts"         : {
+        "test"               : "echo \"Error: no test specified\" && exit 1",
+        "client-webpack-dev" : "npm run webpack-dev & npm run client-dev",
+        "webpack-dev"        : "webpack -wd",
+        "client-dev"         : "nodemon --inspect=0.0.0.0 --exec babel-node client/index.js",
+        "server-dev"         : "nodemon --inspect=0.0.0.0 --exec babel-node server/index.js"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/vainj/df-technical-test.git"
+    "repository"      : {
+        "type" : "git",
+        "url"  : "git+https://github.com/vainj/df-technical-test.git"
     },
-    "author": "jeremyv <jeremy.vain@gmail.com>",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/vainj/df-technical-test/issues"
+    "author"          : "jeremyv <jeremy.vain@gmail.com>",
+    "license"         : "ISC",
+    "bugs"            : {
+        "url" : "https://github.com/vainj/df-technical-test/issues"
     },
-    "homepage": "https://github.com/vainj/df-technical-test#readme",
-    "devDependencies": {
-        "@babel/cli": "^7.8.4",
-        "@babel/core": "^7.8.4",
-        "@babel/node": "^7.8.4",
-        "@babel/plugin-proposal-class-properties": "^7.8.3",
-        "@babel/plugin-transform-runtime": "^7.8.3",
-        "@babel/polyfill": "^7.8.3",
-        "@babel/preset-env": "^7.8.4",
-        "@babel/preset-react": "^7.8.3",
-        "babel-loader": "^8.0.6",
-        "copy-webpack-plugin": "^5.1.1",
-        "nodemon": "^2.0.2",
-        "webpack": "^4.41.6",
-        "webpack-cli": "^3.3.11"
+    "homepage"        : "https://github.com/vainj/df-technical-test#readme",
+    "devDependencies" : {
+        "@babel/cli"                              : "^7.8.4",
+        "@babel/core"                             : "^7.8.4",
+        "@babel/node"                             : "^7.8.4",
+        "@babel/plugin-proposal-class-properties" : "^7.8.3",
+        "@babel/plugin-transform-runtime"         : "^7.8.3",
+        "@babel/polyfill"                         : "^7.8.3",
+        "@babel/preset-env"                       : "^7.8.4",
+        "@babel/preset-react"                     : "^7.8.3",
+        "babel-loader"                            : "^8.0.6",
+        "copy-webpack-plugin"                     : "^5.1.1",
+        "nodemon"                                 : "^2.0.2",
+        "webpack"                                 : "^4.41.6",
+        "webpack-cli"                             : "^3.3.11"
     },
-    "dependencies": {
-        "@material-ui/core": "^4.9.2",
-        "apollo-server-express": "^2.10.0",
-        "compression": "^1.7.4",
-        "express": "^4.17.1",
-        "handlebars": "^4.7.3",
-        "react": "^16.12.0",
-        "react-dom": "^16.12.0",
-        "serve-favicon": "^2.5.0"
+    "dependencies"    : {
+        "@material-ui/core"     : "^4.9.2",
+        "apollo-server-express" : "^2.10.0",
+        "compression"           : "^1.7.4",
+        "express"               : "^4.17.1",
+        "handlebars"            : "^4.7.3",
+        "react"                 : "^16.12.0",
+        "react-dom"             : "^16.12.0",
+        "serve-favicon"         : "^2.5.0"
     }
 }

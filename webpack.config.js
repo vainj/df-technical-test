@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const config = {
     entry   : {
         vendor : ["@babel/polyfill", "react"],
-        app    : ["./src/components/index.js"]
+        app    : ["./client/components/index.js"]
     },
     output  : {
         path     : path.resolve(__dirname, "public"),
