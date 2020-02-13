@@ -16,7 +16,10 @@ router.get('/', async (req, res) => {
         <html lang="en">
             <head>
                 <title>Certificate generator</title>
+                
                 <meta name="viewport" content="width=device-width, initial-scale=1">
+                
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Roboto:300,400,500,700&display=swap" />
             </head>
             <body>
                 <main id="app-component">{{{appComponent}}}</main>

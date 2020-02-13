@@ -1,4 +1,5 @@
 import React from "react";
+import Button from '@material-ui/core/Button';
 
 /**
  * Form component template
@@ -19,12 +20,12 @@ const Form = ({state, handleTextChange, handleButtonClick, handleReset}) => (
             value={state.name}
             onChange={handleTextChange}
         />
-        <button id="btnSubmit" onClick={handleButtonClick}>
+        <Button variant="contained" color="primary" id="btnSubmit" onClick={handleButtonClick}>
             Calculate Name Length
-        </button>
-        <button id="btnReset" onClick={handleReset}>
+        </Button>
+        <Button variant="contained" color="primary" id="btnReset" onClick={handleReset}>
             Reset All
-        </button>
+        </Button>
         <hr/>
         <p>{state.msg}</p>
     </section>
