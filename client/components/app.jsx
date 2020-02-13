@@ -1,5 +1,5 @@
 import React from "react";
-import Form from './templates/form';
+import AppSection from './templates/app';
 
 /**
  * Main React component application
@@ -15,6 +15,9 @@ class App extends React.Component {
         this.handleTextChange  = this.handleTextChange.bind(this);
         this.handleReset       = this.handleReset.bind(this);
 
+        this.title = 'Cerficate generator';
+
+        //TODO: clean this class!
         this.state = {
             name : '',
             msg  : ''
@@ -54,16 +57,11 @@ class App extends React.Component {
     };
 
     /**
-     * Renders form component
-     * @return {Form}
+     * Renders main application section component
+     * @return {AppSection}
      */
     render() {
-        return <Form
-            state={this.state}
-            handleTextChange={this.handleTextChange}
-            handleButtonClick={this.handleButtonClick}
-            handleReset={this.handleReset}
-        />;
+        return <AppSection title={this.title}/>
     }
 }
 
