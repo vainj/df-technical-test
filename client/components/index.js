@@ -6,4 +6,5 @@ import App from "./app";
  * Same as render(), but is used to hydrate a container
  * whose HTML contents were rendered by ReactDOMServer
  */
-hydrate(<App/>, document.getElementById('app-component'));
+const app = document.getElementById('app');
+hydrate(<App/>, app);

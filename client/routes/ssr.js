@@ -7,7 +7,7 @@ import hbs from "handlebars";
 const router = express.Router();
 
 /**
- * Default "/" route to load and display the application
+ * Route to load and display the application
  */
 router.get('/', async (req, res) => {
     //TODO: Externalizes this HTML!
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Roboto:300,400,500,700&display=swap">
             </head>
             <body>
-                <main id="app-component">{{{appComponent}}}</main>
+                <div id="app">{{{reactDom}}}</div>
 
                 <script src="/app.js" charset="utf-8"></script>
                 <script src="/vendor.js" charset="utf-8"></script>
@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 
     const hbsLayoutTemplate = hbs.compile(layout);
     const reactAppComponent = renderToString(<App/>);
-    const htmlToDisplay     = hbsLayoutTemplate({appComponent : reactAppComponent});
+    const htmlToDisplay     = hbsLayoutTemplate({reactDom : reactAppComponent});
     res.send(htmlToDisplay);
 });
 
