@@ -44,7 +44,9 @@ export default class App extends React.Component {
             <AppBar position="static">
                 <Toolbar>
                     <Icon fontSize="large">school</Icon>
-                    <Typography variant="h4">Certificate generator</Typography>
+                    <Box ml="16px">
+                        <Typography variant="h4">Certificate generator</Typography>
+                    </Box>
                 </Toolbar>
             </AppBar>
 
