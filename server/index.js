@@ -1,3 +1,4 @@
+import {ENV} from "../config";
 import express from "express";
 import {ApolloServer, gql} from "apollo-server-express";
 
@@ -21,4 +22,4 @@ const app = express();
 server.applyMiddleware({app});
 
 // Listen for connections on given port
-app.listen({port : process.env.PORT || 4000});
+app.listen(ENV.NODE_SERVER_PORT);

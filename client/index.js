@@ -1,3 +1,4 @@
+import {ENV} from "../config";
 import path from "path";
 import express from "express";
 import compression from "compression";
@@ -23,4 +24,4 @@ app.use(
 app.use('/', ssr);
 
 // Listen for connections on given port
-app.listen(process.env.PORT || 8080);
+app.listen(ENV.NODE_CLIENT_PORT);
