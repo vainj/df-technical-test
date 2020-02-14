@@ -1,9 +1,12 @@
-import {ENV} from "../config";
+// Imports
 import path from "path";
 import express from "express";
 import compression from "compression";
-import ssr from "./routes/ssr";
 import favicon from "serve-favicon";
+
+// App imports
+import {ENV} from "../config";
+import ssr from "./routes/ssr";
 
 const app = express();
 

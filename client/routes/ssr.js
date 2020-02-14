@@ -1,8 +1,11 @@
+// Imports
 import express from "express";
-import App from "../components/app";
 import React from "react";
 import {renderToString} from "react-dom/server";
 import hbs from "handlebars";
+
+// App imports
+import App from "../components/app";
 
 const router = express.Router();
 

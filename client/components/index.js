@@ -1,5 +1,8 @@
+// Imports
 import React from "react";
 import {hydrate} from "react-dom";
+
+// App imports
 import App from "./app";
 
 /**

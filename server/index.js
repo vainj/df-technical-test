@@ -1,6 +1,9 @@
-import {ENV} from "../config";
+// Imports
 import express from "express";
 import {ApolloServer, gql} from "apollo-server-express";
+
+// App imports
+import {ENV} from "../config";
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
@@ -15,8 +18,7 @@ const resolvers = {
         hello : () => 'Hello world!',
     },
 };
-
-const server = new ApolloServer({typeDefs, resolvers});
+const server    = new ApolloServer({typeDefs, resolvers});
 
 const app = express();
 server.applyMiddleware({app});
