@@ -1,5 +1,14 @@
 const path              = require("path");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const dotenv            = require("dotenv");
+const webpack           = require("webpack");
+
+// Loads and parses `.env` file to store variables at runtime
+const env     = dotenv.config().parsed;
+const envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+}, {});
 
 const config = {
     entry   : {
@@ -28,6 +37,7 @@ const config = {
         extensions : [".js", ".jsx", ".json", ".wasm", ".mjs", "*"]
     },
     plugins : [
+        new webpack.DefinePlugin(envKeys),
         new CopyWebpackPlugin([
             {from : 'resources', to : '.'}
         ]),
