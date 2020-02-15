@@ -15,8 +15,6 @@ services:
       - 8080:8080
     networks:
       - frontend
-    depends_on:
-      - mariadb
     command: "npm run client-webpack-dev"
 
   nodeserver:
@@ -32,8 +30,12 @@ services:
     ports:
       - 4000:4000
     networks:
-      - backend
-      - frontend
+      backend:
+        aliases:
+          - backend.nodeserver
+      frontend:
+        aliases:
+          - frontend.nodeserver
     depends_on:
       - mariadb
     command: "npm run server-dev"
@@ -44,7 +46,9 @@ services:
     ports:
       - 3306:3306
     networks:
-      - backend
+      backend:
+        aliases:
+            - backend.mariadb
     environment:
       MYSQL_ROOT_PASSWORD: xUnsbUoGSku7BmPZ1g2pTexA
       MYSQL_DATABASE: df_technical_test
