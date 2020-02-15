@@ -13,6 +13,7 @@ export const typeDefs = gql`
     extend type Query {
         userCertificates: [UserCertificate!]
         userCertificate(id: ID!): UserCertificate
+        userCertificateByEmail(email: String!): UserCertificate
     }
     
     extend type Mutation {
@@ -26,6 +27,6 @@ export const typeDefs = gql`
             firstName: String!, 
             lastName:String!,
             email: String!
-        ): [Int!]!
+        ): UserCertificate!
     }
 `;

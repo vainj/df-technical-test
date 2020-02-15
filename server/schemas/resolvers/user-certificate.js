@@ -3,8 +3,16 @@ export const resolver = {
         fullName : (parent, args, context, info) => `${parent.firstName} ${parent.lastName}`
     },
     Query           : {
-        userCertificates : async (parent, args, {dbModels}, info) => dbModels.UserCertificate.findAll(),
-        userCertificate  : async (parent, {id}, {dbModels}, info) => dbModels.UserCertificate.findByPk(id)
+        userCertificates       : async (parent, args, {dbModels}, info) =>
+            dbModels.UserCertificate.findAll(),
+        userCertificate        : async (parent, {id}, {dbModels}, info) =>
+            dbModels.UserCertificate.findByPk(id),
+        userCertificateByEmail : async (parent, {email}, {dbModels}, info) =>
+            dbModels.UserCertificate.findOne({
+                where : {
+                    email : email
+                }
+            })
     },
     Mutation        : {
         createUserCertificate : async (parent, {firstName, lastName, email}, {dbModels}, info) =>
@@ -13,7 +21,7 @@ export const resolver = {
                 lastName  : lastName,
                 email     : email
             }),
-        updateUserCertificate : async (parent, {firstName, lastName, email, id}, {dbModels}, info) =>
+        updateUserCertificate : async (parent, {id, firstName, lastName, email}, {dbModels}, info) =>
             dbModels.UserCertificate.update({
                     firstName : firstName,
                     lastName  : lastName,
