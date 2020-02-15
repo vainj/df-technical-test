@@ -1,4 +1,4 @@
 // App imports
-import {resolver as UserCertificate} from "./user_certificate";
+import {resolver as UserCertificate} from "./user-certificate";
 
 export const resolversArray = [UserCertificate];
