@@ -22,11 +22,12 @@ export default class App extends React.Component {
             firstName : '',
             lastName  : '',
             email     : '',
+            disabled  : true
         };
     }
 
     /**
-     * Resets `state` values on reset button click
+     * Resets `state` values on "Clear" button click
      * @return {void}
      */
     clearFormInputs = () => {
@@ -34,8 +35,19 @@ export default class App extends React.Component {
             firstName : '',
             lastName  : '',
             email     : '',
+            disabled  : true
         });
-    };
+    }
+
+    handleInputChanges = (e) => {
+        const inputName       = e.target.name;
+        this.state[inputName] = e.target.value;
+
+        const disabled = (this.state.firstName === ''
+            || this.state.lastName === ''
+            || this.state.email === '');
+        this.setState({disabled : disabled});
+    }
 
     /**
      * Renders main application component
@@ -57,15 +69,17 @@ export default class App extends React.Component {
                            required
                            fullWidth
                            margin="normal"
+                           name="firstName"
                            value={this.state.firstName}
-                           onChange={(e) => this.setState({firstName : e.target.value})}/>
+                           onChange={this.handleInputChanges}/>
                 <TextField label="Enter your last name"
                            variant="outlined"
                            required
                            fullWidth
                            margin="normal"
                            value={this.state.lastName}
-                           onChange={(e) => this.setState({lastName : e.target.value})}/>
+                           name="lastName"
+                           onChange={this.handleInputChanges}/>
                 <TextField label="Enter your email"
                            variant="outlined"
                            type="email"
@@ -73,7 +87,8 @@ export default class App extends React.Component {
                            fullWidth
                            margin="normal"
                            value={this.state.email}
-                           onChange={(e) => this.setState({email : e.target.value})}/>
+                           name="email"
+                           onChange={this.handleInputChanges}/>
             </Container>
 
             <Box display="flex" justifyContent="center">
