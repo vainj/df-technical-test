@@ -4,14 +4,15 @@ import {ApolloServer} from "apollo-server-express";
 
 // App imports
 import {ENV} from "../config";
-import {userCertificateTypeDefs} from "./graphql/user_certificate/schema";
-import {userCertificateResolver} from "./graphql/user_certificate/resolver";
+import {typeDefsArray} from "./schemas/type_defs";
+import {resolversArray} from "./schemas/resolvers";
 import db from "../database/models";
 
-const server = new ApolloServer({
-    typeDefs  : userCertificateTypeDefs,
-    resolvers : userCertificateResolver,
-    context   : {db}
+const dbModels = db.sequelize.models;
+const server   = new ApolloServer({
+    typeDefs  : typeDefsArray,
+    resolvers : resolversArray,
+    context   : {dbModels}
 });
 
 const app = express();
