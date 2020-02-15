@@ -1,24 +1,18 @@
 // Imports
 import express from "express";
-import {ApolloServer, gql} from "apollo-server-express";
+import {ApolloServer} from "apollo-server-express";
 
 // App imports
 import {ENV} from "../config";
+import {userCertificateTypeDefs} from "./graphql/user_certificate/schema";
+import {userCertificateResolver} from "./graphql/user_certificate/resolver";
+import db from "../database/models";
 
-// Construct a schema, using GraphQL schema language
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-// Provide resolver functions for your schema fields
-const resolvers = {
-    Query : {
-        hello : () => 'Hello world!',
-    },
-};
-const server    = new ApolloServer({typeDefs, resolvers});
+const server = new ApolloServer({
+    typeDefs  : userCertificateTypeDefs,
+    resolvers : userCertificateResolver,
+    context   : {db}
+});
 
 const app = express();
 server.applyMiddleware({app});
