@@ -32,6 +32,9 @@ const config = {
             {from : 'resources', to : '.'}
         ]),
     ],
+    node    : {
+        fs : 'empty'
+    }
 };
 
 module.exports = config;
