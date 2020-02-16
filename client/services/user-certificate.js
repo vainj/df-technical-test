@@ -94,7 +94,7 @@ export default class UserCertificateService {
                     firstName:"${firstName}",
                     lastName:"${lastName}",
                     email:"${email}"
-                ){id}
+                )
             }
         `;
 
