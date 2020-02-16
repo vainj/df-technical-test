@@ -1,5 +1,6 @@
 // Imports
 import React from "react";
+import {withSnackbar} from 'notistack';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -9,22 +10,86 @@ import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
+// App imports
+import UserCertificateService from "../services/user-certificate";
+
 /**
  * Main application component
  */
-export default class App extends React.Component {
+class App extends React.Component {
+    /**
+     * Constructor
+     * @param {Object} props
+     */
     constructor(props) {
         super(props);
 
         this.buttonStyle = {flexBasis : '20%', margin : '0 16px'};
 
+        // Initializes state variables of this component
         this.state = {
             firstName : '',
             lastName  : '',
             email     : '',
             disabled  : true
         };
+
+        // New User certificate service instance
+        this.userCertificateService = new UserCertificateService();
     }
+
+    /**
+     * Generates a certificate with the given form values
+     * @return {void}
+     */
+    generateCertificate = () => {
+        let snackbar = {
+            message : 'An unknown error occurred',
+            variant : 'error'
+        };
+
+        this.userCertificateService.save(
+            this.state.firstName,
+            this.state.lastName,
+            this.state.email,
+        )
+            .then((result) => {
+                if (
+                    result.hasOwnProperty('data')
+                    && (
+                        result.data.hasOwnProperty('createUserCertificate')
+                        || result.data.hasOwnProperty('updateUserCertificate')
+                    )
+                ) {
+                    snackbar = {
+                        message : `An email has just been sent to the address ${this.state.email}`,
+                        variant : 'success'
+                    };
+
+                    this.clearFormInputs();
+                } else {
+                    if (
+                        result.hasOwnProperty('errors')
+                        && Array.isArray(result.errors)
+                        && result.errors[0].hasOwnProperty('message')
+                    ) {
+                        snackbar.message = result.errors[0].message;
+                    }
+                }
+
+                this.props.enqueueSnackbar(snackbar.message, {
+                    autoHideDuration : 6000,
+                    variant          : snackbar.variant,
+                });
+            })
+            .catch((error) => {
+                this.props.enqueueSnackbar(error.message || snackbar.message, {
+                    autoHideDuration : 6000,
+                    variant          : snackbar.variant,
+                });
+            });
+        ;
+    };
 
     /**
      * Resets `state` values on "Clear" button click
@@ -37,8 +102,13 @@ export default class App extends React.Component {
             email     : '',
             disabled  : true
         });
-    }
+    };
 
+    /**
+     * Handles input type text changes
+     * @param {Event} e
+     * @return {void}
+     */
     handleInputChanges = (e) => {
         const inputName       = e.target.name;
         this.state[inputName] = e.target.value;
@@ -47,7 +117,7 @@ export default class App extends React.Component {
             || this.state.lastName === ''
             || this.state.email === '');
         this.setState({disabled : disabled});
-    }
+    };
 
     /**
      * Renders main application component
@@ -95,10 +165,17 @@ export default class App extends React.Component {
                 <Button variant="outlined" size="large" style={this.buttonStyle} onClick={this.clearFormInputs}>
                     Clear form
                 </Button>
-                <Button variant="contained" color="primary" size="large" style={this.buttonStyle}>
+                <Button variant="contained"
+                        color="primary"
+                        size="large"
+                        style={this.buttonStyle}
+                        onClick={this.generateCertificate}
+                        disabled={this.state.disabled}>
                     Generate certificate
                 </Button>
             </Box>
         </section>;
     }
-}
+};
+
+export default withSnackbar(App);

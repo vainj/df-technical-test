@@ -24,7 +24,7 @@ export default class UserCertificateService {
      * @param {String} email
      * @return {Promise}
      */
-    save(firstName, lastName, email) {
+    save = (firstName, lastName, email) => {
         return this.findByEmail(email)
                    .then((result) => {
                        if (
@@ -40,14 +40,14 @@ export default class UserCertificateService {
                            return this.insert(firstName, lastName, email);
                        }
                    });
-    }
+    };
 
     /**
      * Finds a "user certificate" by a given email
      * @param {String} email
      * @return {Promise}
      */
-    findByEmail(email) {
+    findByEmail = (email) => {
         const query = gql`
             query {
               userCertificateByEmail(email:"${email}"){id,firstName,lastName}
@@ -55,7 +55,7 @@ export default class UserCertificateService {
         `;
 
         return this.client.query({query});
-    }
+    };
 
     /**
      * Insert a new "user certificate"
@@ -64,7 +64,7 @@ export default class UserCertificateService {
      * @param {String} email
      * @return {Promise}
      */
-    insert(firstName, lastName, email) {
+    insert = (firstName, lastName, email) => {
         const mutation = gql`
             mutation {
                 createUserCertificate(
@@ -76,7 +76,7 @@ export default class UserCertificateService {
         `;
 
         return this.client.mutate({mutation});
-    }
+    };
 
     /**
      * Update an existing "user certificate"
@@ -86,7 +86,7 @@ export default class UserCertificateService {
      * @param {String} email
      * @return {Promise}
      */
-    update(id, firstName, lastName, email) {
+    update = (id, firstName, lastName, email) => {
         const mutation = gql`
             mutation {
                 updateUserCertificate(
@@ -99,5 +99,5 @@ export default class UserCertificateService {
         `;
 
         return this.client.mutate({mutation});
-    }
+    };
 };
