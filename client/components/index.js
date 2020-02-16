@@ -1,6 +1,7 @@
 // Imports
 import React from "react";
 import {hydrate} from "react-dom";
+import {SnackbarProvider} from "notistack";
 
 // App imports
 import App from "./app";
@@ -10,4 +11,4 @@ import App from "./app";
  * whose HTML contents were rendered by ReactDOMServer
  */
 const app = document.getElementById('app');
-hydrate(<App/>, app);
+hydrate(<SnackbarProvider maxSnack={3}><App/></SnackbarProvider>, app);

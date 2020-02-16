@@ -3,6 +3,7 @@ import express from "express";
 import React from "react";
 import {renderToString} from "react-dom/server";
 import hbs from "handlebars";
+import {SnackbarProvider} from "notistack";
 
 // App imports
 import App from "../components/app";
@@ -35,7 +36,7 @@ router.get('/', async (req, res) => {
     `;
 
     const hbsLayoutTemplate = hbs.compile(layout);
-    const reactAppComponent = renderToString(<App/>);
+    const reactAppComponent = renderToString(<SnackbarProvider maxSnack={3}><App/></SnackbarProvider>);
     const htmlToDisplay     = hbsLayoutTemplate({reactDom : reactAppComponent});
     res.send(htmlToDisplay);
 });
