@@ -15,10 +15,19 @@ export default class UserCertificateService {
         this.jwtSecret      = process.env.JWT_SECRET;
         this.tokenExpiresIn = "1h"; //Token validity period (here 1 hour)
 
-        this.client = new ApolloClient({
-            uri   : process.env.GRAPHQL_ENDPOINT,
+        this.client                = new ApolloClient({
+            uri   : process.env.NODE_SERVER_URL + '/graphql',
             fetch : fetch,
         });
+        this.client.defaultOptions = {
+            watchQuery : {
+                fetchPolicy : 'cache-and-network',
+                errorPolicy : 'all',
+            },
+            query      : {
+                fetchPolicy : 'network-only'
+            }
+        };
     }
 
     /**
@@ -79,7 +88,7 @@ export default class UserCertificateService {
                     lastName:"${lastName}",
                     email:"${email}",
                     token:"${token}"
-                ){id}
+                ){id,firstName,lastName,email,token}
             }
         `;
 
@@ -104,7 +113,7 @@ export default class UserCertificateService {
                     lastName:"${lastName}",
                     email:"${email}",
                     token:"${token}"
-                )
+                ){id,firstName,lastName,email,token}
             }
         `;
 
