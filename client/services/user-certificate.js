@@ -38,7 +38,7 @@ export default class UserCertificateService {
      * @return {Promise}
      */
     save = (firstName, lastName, email) => {
-        const token = this.generateToken(email);
+        const token = this.generateToken(firstName, lastName);
 
         return this.findByEmail(email)
                    .then((result) => {
@@ -122,12 +122,16 @@ export default class UserCertificateService {
 
     /**
      * Generates a JWT token for future download
-     * @param {String} email
+     * @param {String} firstName
+     * @param {String} lastName
      * @return {String}
      */
-    generateToken = (email) => {
+    generateToken = (firstName, lastName) => {
         return jwt.sign(
-            {email : email},
+            {
+                firstName : firstName,
+                lastName  : lastName
+            },
             this.jwtSecret,
             {expiresIn : this.tokenExpiresIn}
         );
