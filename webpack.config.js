@@ -39,7 +39,11 @@ const config = {
     plugins : [
         new webpack.DefinePlugin(envKeys),
         new CopyWebpackPlugin([
-            {from : 'resources', to : '.'}
+            {
+                from   : 'resources',
+                to     : '.',
+                ignore : ['certificate-template.jpg']
+            }
         ]),
     ],
     node    : {
