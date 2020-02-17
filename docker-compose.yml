@@ -30,12 +30,8 @@ services:
     ports:
       - 4000:4000
     networks:
-      backend:
-        aliases:
-          - backend.nodeserver
-      frontend:
-        aliases:
-          - frontend.nodeserver
+      - backend
+      - frontend
     depends_on:
       - mariadb
     command: "npm run server-dev"
@@ -46,9 +42,7 @@ services:
     ports:
       - 3306:3306
     networks:
-      backend:
-        aliases:
-            - backend.mariadb
+      - backend
     environment:
       MYSQL_ROOT_PASSWORD: xUnsbUoGSku7BmPZ1g2pTexA
       MYSQL_DATABASE: df_technical_test
