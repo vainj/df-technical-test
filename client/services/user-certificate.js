@@ -2,6 +2,7 @@
 import ApolloClient from 'apollo-boost';
 import gql from 'graphql-tag';
 import fetch from "node-fetch";
+import jwt from "jsonwebtoken";
 
 /**
  * User certificate service
@@ -11,6 +12,9 @@ export default class UserCertificateService {
      * Constructor
      */
     constructor() {
+        this.jwtSecret      = process.env.JWT_SECRET;
+        this.tokenExpiresIn = "1h"; //Token validity period (here 1 hour)
+
         this.client = new ApolloClient({
             uri   : process.env.GRAPHQL_ENDPOINT,
             fetch : fetch,
@@ -25,6 +29,8 @@ export default class UserCertificateService {
      * @return {Promise}
      */
     save = (firstName, lastName, email) => {
+        const token = this.generateToken(email);
+
         return this.findByEmail(email)
                    .then((result) => {
                        if (
@@ -34,10 +40,10 @@ export default class UserCertificateService {
                            // A user with the same email address already exists, we update it so
                            const userId = result.data.userCertificateByEmail.id;
 
-                           return this.update(userId, firstName, lastName, email);
+                           return this.update(userId, firstName, lastName, email, token);
                        } else {
                            // There is no existing user with the same email address, we insert it so
-                           return this.insert(firstName, lastName, email);
+                           return this.insert(firstName, lastName, email, token);
                        }
                    });
     };
@@ -62,15 +68,17 @@ export default class UserCertificateService {
      * @param {String} firstName
      * @param {String} lastName
      * @param {String} email
+     * @param {String} token
      * @return {Promise}
      */
-    insert = (firstName, lastName, email) => {
+    insert = (firstName, lastName, email, token) => {
         const mutation = gql`
             mutation {
                 createUserCertificate(
                     firstName:"${firstName}",
                     lastName:"${lastName}",
-                    email:"${email}"
+                    email:"${email}",
+                    token:"${token}"
                 ){id}
             }
         `;
@@ -84,20 +92,35 @@ export default class UserCertificateService {
      * @param {String} firstName
      * @param {String} lastName
      * @param {String} email
+     * @param {String} token
      * @return {Promise}
      */
-    update = (id, firstName, lastName, email) => {
+    update = (id, firstName, lastName, email, token) => {
         const mutation = gql`
             mutation {
                 updateUserCertificate(
                     id:"${id}",
                     firstName:"${firstName}",
                     lastName:"${lastName}",
-                    email:"${email}"
+                    email:"${email}",
+                    token:"${token}"
                 )
             }
         `;
 
         return this.client.mutate({mutation});
+    };
+
+    /**
+     * Generates a JWT token for future download
+     * @param {String} email
+     * @return {String}
+     */
+    generateToken = (email) => {
+        return jwt.sign(
+            {email : email},
+            this.jwtSecret,
+            {expiresIn : this.tokenExpiresIn}
+        );
     };
 };

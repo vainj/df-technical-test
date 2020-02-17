@@ -15,17 +15,19 @@ export const resolver = {
             })
     },
     Mutation        : {
-        createUserCertificate : async (parent, {firstName, lastName, email}, {dbModels}, info) =>
+        createUserCertificate : async (parent, {firstName, lastName, email, token}, {dbModels}, info) =>
             dbModels.UserCertificate.create({
                 firstName : firstName,
                 lastName  : lastName,
-                email     : email
+                email     : email,
+                token     : token
             }),
-        updateUserCertificate : async (parent, {id, firstName, lastName, email}, {dbModels}, info) =>
+        updateUserCertificate : async (parent, {id, firstName, lastName, email, token}, {dbModels}, info) =>
             dbModels.UserCertificate.update({
                     firstName : firstName,
                     lastName  : lastName,
-                    email     : email
+                    email     : email,
+                    token     : token
                 },
                 {
                     where : {

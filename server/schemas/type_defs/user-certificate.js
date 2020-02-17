@@ -7,6 +7,7 @@ export const typeDefs = gql`
         firstName: String!
         lastName: String!
         email: String!
+        token: String!
         fullName: String!        
     }
 
@@ -21,12 +22,14 @@ export const typeDefs = gql`
             firstName: String!, 
             lastName:String!, 
             email: String!
+            token: String!
         ): UserCertificate!
         updateUserCertificate(
             id: ID!, 
             firstName: String!, 
             lastName:String!,
             email: String!
+            token: String!
         ): [ID!]!
     }
 `;
