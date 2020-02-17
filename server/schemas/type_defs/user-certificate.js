@@ -30,6 +30,6 @@ export const typeDefs = gql`
             lastName:String!,
             email: String!
             token: String!
-        ): [ID!]!
+        ): UserCertificate!
     }
 `;
