@@ -4,9 +4,10 @@ module.exports = {
         return queryInterface.addColumn('user_certificates',
             'token',
             {
-                type      : Sequelize.STRING(255),
+                type      : Sequelize.STRING(200),
                 allowNull : false,
-                unique    : true
+                unique    : true,
+                after     : 'email'
             });
     },
     down : (queryInterface, Sequelize) => {
