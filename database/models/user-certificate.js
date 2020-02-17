@@ -12,6 +12,9 @@ export default (sequelize, DataTypes) => {
             validate : {
                 isEmail : true
             }
+        },
+        token     : {
+            type : DataTypes.STRING
         }
     }, {
         underscored : true,
