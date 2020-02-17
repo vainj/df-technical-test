@@ -9,6 +9,7 @@ import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import axios from "axios";
 
 // App imports
 import UserCertificateService from "../services/user-certificate";
@@ -43,11 +44,6 @@ class App extends React.Component {
      * @return {void}
      */
     generateCertificate = () => {
-        let snackbar = {
-            message : 'An unknown error occurred',
-            variant : 'error'
-        };
-
         this.userCertificateService.save(
             this.state.firstName,
             this.state.lastName,
@@ -61,31 +57,43 @@ class App extends React.Component {
                         || result.data.hasOwnProperty('updateUserCertificate')
                     )
                 ) {
-                    snackbar = {
-                        message : `An email has just been sent to the address ${this.state.email}`,
-                        variant : 'success'
-                    };
+                    const userCertificate = result.data.createUserCertificate || result.data.updateUserCertificate;
+
+                    // Sends email to the user
+                    const sendEmailUrl = process.env.NODE_SERVER_URL + '/send';
+                    return axios({
+                        method : 'POST',
+                        url    : sendEmailUrl,
+                        data   : {
+                            firstName : userCertificate.firstName,
+                            email     : userCertificate.email,
+                            token     : userCertificate.token
+                        }
+                    });
+                } else {
+                    throw {message : 'An error occurred while trying to insert the new UserCertificate'};
+                }
+            })
+            .then((response) => {
+                if (
+                    response.hasOwnProperty('data')
+                    && response.data.hasOwnProperty('success')
+                    && response.data.success
+                ) {
+                    this.props.enqueueSnackbar(`An email has just been sent to the address ${this.state.email}`, {
+                        autoHideDuration : 6000,
+                        variant          : 'success',
+                    });
 
                     this.clearFormInputs();
                 } else {
-                    if (
-                        result.hasOwnProperty('errors')
-                        && Array.isArray(result.errors)
-                        && result.errors[0].hasOwnProperty('message')
-                    ) {
-                        snackbar.message = result.errors[0].message;
-                    }
+                    throw {message : 'An error occurred while trying to send email'};
                 }
-
-                this.props.enqueueSnackbar(snackbar.message, {
-                    autoHideDuration : 6000,
-                    variant          : snackbar.variant,
-                });
             })
             .catch((error) => {
-                this.props.enqueueSnackbar(error.message || snackbar.message, {
+                this.props.enqueueSnackbar(error.message || 'An unknown error occurred', {
                     autoHideDuration : 6000,
-                    variant          : snackbar.variant,
+                    variant          : 'error',
                 });
             });
         ;
