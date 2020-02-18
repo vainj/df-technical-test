@@ -1,5 +1,5 @@
 .idea
 node_modules
 public/*
-!public/.gitignore
+!public/tmp/.gitignore
 .env
