@@ -4,6 +4,7 @@ import {withSnackbar} from 'notistack';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from '@material-ui/core/Container';
 import Icon from '@material-ui/core/Icon';
 import TextField from '@material-ui/core/TextField';
@@ -25,14 +26,36 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
-        this.buttonStyle = {flexBasis : '20%', margin : '0 16px'};
+        // Component style
+        this.styles = {
+            buttonsMainWrapper : {
+                display        : 'flex',
+                justifyContent : 'center'
+            },
+            buttonWrapper      : {
+                position  : 'relative',
+                flexBasis : '20%',
+                margin    : '0 16px',
+            },
+            button             : {
+                width : '100%',
+            },
+            progress           : {
+                position   : 'absolute',
+                top        : '50%',
+                left       : '50%',
+                marginTop  : -12,
+                marginLeft : -12
+            }
+        };
 
         // Initializes state variables of this component
         this.state = {
             firstName : '',
             lastName  : '',
             email     : '',
-            disabled  : true
+            disabled  : true,
+            loading   : false
         };
 
         // New User certificate service instance
@@ -44,6 +67,9 @@ class App extends React.Component {
      * @return {void}
      */
     generateCertificate = () => {
+        // Displays loader
+        this.setState({disabled : true, loading : true});
+
         this.userCertificateService.save(
             this.state.firstName,
             this.state.lastName,
@@ -95,8 +121,10 @@ class App extends React.Component {
                     autoHideDuration : 6000,
                     variant          : 'error',
                 });
+            })
+            .finally(() => {
+                this.setState({disabled : false, loading : false});
             });
-        ;
     };
 
     /**
@@ -108,7 +136,8 @@ class App extends React.Component {
             firstName : '',
             lastName  : '',
             email     : '',
-            disabled  : true
+            disabled  : true,
+            loading   : false
         });
     };
 
@@ -169,19 +198,24 @@ class App extends React.Component {
                            onChange={this.handleInputChanges}/>
             </Container>
 
-            <Box display="flex" justifyContent="center">
-                <Button variant="outlined" size="large" style={this.buttonStyle} onClick={this.clearFormInputs}>
-                    Clear form
-                </Button>
-                <Button variant="contained"
-                        color="primary"
-                        size="large"
-                        style={this.buttonStyle}
-                        onClick={this.generateCertificate}
-                        disabled={this.state.disabled}>
-                    Generate certificate
-                </Button>
-            </Box>
+            <div style={this.styles.buttonsMainWrapper}>
+                <div style={this.styles.buttonWrapper}>
+                    <Button variant="outlined" size="large" style={this.styles.button} onClick={this.clearFormInputs}>
+                        Clear form
+                    </Button>
+                </div>
+                <div style={this.styles.buttonWrapper}>
+                    <Button variant="contained"
+                            color="primary"
+                            size="large"
+                            style={this.styles.button}
+                            onClick={this.generateCertificate}
+                            disabled={this.state.disabled}>
+                        Generate certificate
+                    </Button>
+                    {this.state.loading && <CircularProgress size={24} style={this.styles.progress}/>}
+                </div>
+            </div>
         </section>;
     }
 };
