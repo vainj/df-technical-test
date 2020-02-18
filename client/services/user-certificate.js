@@ -129,8 +129,7 @@ export default class UserCertificateService {
     generateToken = (firstName, lastName) => {
         return jwt.sign(
             {
-                firstName : firstName,
-                lastName  : lastName
+                fullName : `${firstName} ${lastName}`,
             },
             this.jwtSecret,
             {expiresIn : this.tokenExpiresIn}
