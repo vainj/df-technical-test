@@ -67,6 +67,19 @@ class App extends React.Component {
      * @return {void}
      */
     generateCertificate = () => {
+        // Checks empty values
+        if (
+            this.state.firstName.trim() === ''
+            || this.state.lastName.trim() === ''
+            || this.state.email.trim() === ''
+        ) {
+            this.props.enqueueSnackbar('All fields are required', {
+                autoHideDuration : 6000,
+                variant          : 'warning',
+            });
+            return;
+        }
+
         // Displays loader
         this.setState({disabled : true, loading : true});
 
