@@ -1,0 +1,54 @@
+version: "3.1"
+
+services:
+  nodeclient:
+    image: "node:12"
+    user: "node"
+    container_name: nodeclient
+    working_dir: /home/node/app
+    environment:
+      - PORT=8080
+      - NODE_ENV=development
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - 8080:8080
+    networks:
+      - frontend
+    command: "npm run client-webpack-dev"
+
+  nodeserver:
+    image: "node:12"
+    user: "node"
+    container_name: nodeserver
+    working_dir: /home/node/app
+    environment:
+      - PORT=4000
+      - NODE_ENV=development
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - 4000:4000
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - mariadb
+    command: "npm run server-dev"
+
+  mariadb:
+    image: "mariadb"
+    container_name: mariadb
+    ports:
+      - 3306:3306
+    networks:
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: xUnsbUoGSku7BmPZ1g2pTexA
+      MYSQL_DATABASE: df_technical_test
+      MYSQL_USER: user_rw
+      MYSQL_PASSWORD: 1!dzM77%k
+
+networks:
+  backend:
+  frontend:
