@@ -28,11 +28,15 @@ Then you have to add the two lines below in the `hosts` file of your local machi
     ```
     $ npm install
     ```
-3. Execute this command to build and launch Docker containers:
+3. Create `.env` environment file (and set right values inside):
+    ```
+    $ cp .env.example .env
+    ```
+4. Execute this command to build and launch Docker containers:
     ```
     $ docker-compose up -d --build
     ```
-4. Play the database migration files:
+5. Play the database migration files:
     ```
     # On your local machine 
     # (or into the 'nodeserver' container: `$ docker exec -it nodeserver bash`)
