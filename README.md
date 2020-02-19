@@ -9,11 +9,11 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 Before launching this project on your local machine you must install the following packages:
-- Docker (https://docs.docker.com/install/)
-- Docker Composer (https://docs.docker.com/compose/install/)
+* Docker (https://docs.docker.com/install/)
+* Docker Composer (https://docs.docker.com/compose/install/)
 
 Install `npm` command on your local machine:
-- https://www.npmjs.com/get-npm
+* https://www.npmjs.com/get-npm
 
 Then you have to add the two lines below in the `hosts` file of your local machine:
 ```
@@ -41,12 +41,34 @@ Then you have to add the two lines below in the `hosts` file of your local machi
     # On your local machine 
     # (or into the 'nodeserver' container: `$ docker exec -it nodeserver bash`)
     
+    # /!\ This error can appear if the `mariadb` container has not completely finished booting:
+    # `ERROR: (conn=-1, no: 45009, SQLState: 08S01) socket has unexpectedly been closed`
+    # -> Please wait some seconds
+   
     # DB structure
     $ npx sequelize-cli db:migrate
     
     # DB seeds (optional)
     $ npx sequelize-cli db:seed:all
     ```
+
+## Usage
+
+URL:
+* [Web application URL](http://localhost:8080): http://localhost:8080
+* [GraphQL client](http://localhost:4000/graphql): http://localhost:4000/graphql
+
+### Mailtrap
+This project uses [Mailtrap](https://mailtrap.io/) to catch and visualize sent email in development environment.
+* Invitation link (if you use default SMTP configuration): https://mailtrap.io/share/612348/3ea2b84e0892926522a241beb61458b1
+
+You can switch to your favorite email testing service, in this case, you must edit environment variables into the `.env` file:
+```
+MAIL_HOST=smtp.****
+MAIL_PORT=****
+MAIL_USER=****
+MAIL_PASSWORD=****
+```
 
 ## Running the tests
 
@@ -75,14 +97,14 @@ $ npm run test
 
 ## TODO
 
-- Testing purposes
-- Deployment on a production environment
-- Migrate to TypeScript
-- Live browser reload
-- Assets optimizations (minification, image size, ...)
-- More dynamic React application (route => view)
-- Better separation between client / server (package.json, ...)
-- GraphQL authentication & Middleware (https://graphql.org/graphql-js/authentication-and-express-middleware/)
-- JSdoc
-- ESLint (https://eslint.org/)
-- Uses Dockerfile to improve installation procedure
+* Testing purposes
+* Deployment on a production environment
+* Migrate to TypeScript
+* Live browser reload
+* Assets optimizations (minification, image size, ...)
+* More dynamic React application (route => view)
+* Better separation between client / server (package.json, ...)
+* GraphQL authentication & Middleware (https://graphql.org/graphql-js/authentication-and-express-middleware/)
+* JSdoc
+* ESLint (https://eslint.org/)
+* Uses Dockerfile to improve installation procedure
