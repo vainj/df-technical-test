@@ -6,8 +6,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "client-webpack-dev": "npm run webpack-dev & npm run client-dev",
         "webpack-dev": "webpack -wd",
-        "client-dev": "nodemon --inspect=0.0.0.0 --exec babel-node client/index.js",
-        "server-dev": "nodemon --inspect=0.0.0.0 --exec babel-node server/index.js"
+        "client-dev": "npm install && nodemon --inspect=0.0.0.0 --exec babel-node client/index.js",
+        "server-dev": "npm install && nodemon --inspect=0.0.0.0 --exec babel-node server/index.js"
     },
     "repository": {
         "type": "git",
