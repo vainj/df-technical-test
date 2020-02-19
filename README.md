@@ -12,6 +12,9 @@ Before launching this project on your local machine you must install the followi
 - Docker (https://docs.docker.com/install/)
 - Docker Composer (https://docs.docker.com/compose/install/)
 
+Install `npm` command on your local machine:
+- https://www.npmjs.com/get-npm
+
 Then you have to add the two lines below in the `hosts` file of your local machine:
 ```
 127.0.1.1	nodeserver
@@ -20,44 +23,36 @@ Then you have to add the two lines below in the `hosts` file of your local machi
 
 ### Installing
 
-1. Go to the project directory on your local machine 
-2. Execute this command to build and launch Docker containers:
+1. Go to the project directory on your local machine
+2. Install project dependencies:
+    ```
+    $ npm install
+    ```
+3. Execute this command to build and launch Docker containers:
     ```
     $ docker-compose up -d --build
     ```
-3. Install project dependencies:
-    ```
-    # Connect into the 'nodeserver' container
-    $ docker exec -it nodeserver bash
-    
-    # Install project dependencies
-    node@6a6aae7eb70f:~/app$ npm install
-    ```
 4. Play the database migration files:
     ```
-    # Connect into the 'nodeserver' container
-    $ docker exec -it nodeserver bash
+    # On your local machine 
+    # (or into the 'nodeserver' container: `$ docker exec -it nodeserver bash`)
     
     # DB structure
-    node@6a6aae7eb70f:~/app$ npx sequelize-cli db:migrate
+    $ npx sequelize-cli db:migrate
     
     # DB seeds (optional)
-    node@6a6aae7eb70f:~/app$ npx sequelize-cli db:seed:all
-    ```
-5. Restart containers:
-    ```
-    $ docker-compose stop && docker-compose up -d --build
+    $ npx sequelize-cli db:seed:all
     ```
 
 ## Running the tests
 
 Executes this command to run tests:
 ```
-# Connect into the 'nodeserver' container
-$ docker exec -it nodeserver bash
+# On your local machine 
+# (or into the 'nodeserver' container: `$ docker exec -it nodeserver bash`)
 
 # Run tests
-node@6a6aae7eb70f:~/app$ npm run test
+$ npm run test
 ```
 
 ## Built With
