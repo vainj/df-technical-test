@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 Before launching this project on your local machine you must install the following packages:
 * Docker (https://docs.docker.com/install/)
-* Docker Composer (https://docs.docker.com/compose/install/)
+* Docker Compose (https://docs.docker.com/compose/install/)
 
 Install `npm` command on your local machine:
 * https://www.npmjs.com/get-npm
