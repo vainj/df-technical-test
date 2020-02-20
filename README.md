@@ -17,8 +17,8 @@ Install `npm` command on your local machine:
 
 Then you have to add the two lines below in the `hosts` file of your local machine:
 ```
-127.0.1.1	nodeserver
-127.0.1.1	mariadb
+127.0.0.1	nodeserver
+127.0.0.1	mariadb
 ```
 
 ### Installing
